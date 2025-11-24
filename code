@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<string.h>
+int count=0;
+ struct list 
+    {
+        char name[50];
+        int ep;
+    };
+int loadcount()
+{
+    int c=0;
+    char line[100];
+    FILE*file=fopen("list.txt","r");
+    if (file==NULL)
+    {
+        return 0;
+    }
+    while(fgets(line,sizeof(line),file))
+    {
+        if(strncmp(line,"Sr.No. ",7)==0)
+        {
+            c++;
+        }
+    }
+    fclose(file);
+    return c;
+    
+}
+void add(struct list s[]);
+void deletelist(struct list s[]);
+void see(struct list s[]);
+
+int main()
+{
+    struct list s[100];
+    int option;
+    count=loadcount();
+    printf("Welcome to your.anime.list");
+    start:
+    printf("Enter your choice: \n1)Add new title to your list.\n2)Delete list\n3)See list\n4)Exit\n ");
+    scanf("%d",&option);
+    switch (option)
+    {
+        case 1: add(s);
+        break;
+        case 2: deletelist(s);
+        break;
+        case 3: see(s);
+        break;
+        case 4: return 0;
+        break;
+        default : printf("Invalid input \nEnter valid input\n");
+        goto start;
+    }
+    return 0;
+}
+void add(struct list s[])
+{
+    int i,n,ep;
+    printf("Enter how many titles to be added\n");
+    scanf("%d",&n);
+    FILE*file=fopen("list.txt","a");
+    if (file == NULL)
+    {
+        printf("Could not open file!\n");
+        return;
+    }
+    for(i=0;i<n;i++)
+    {
+        printf("Enter name of title %d ",i+1);
+        scanf(" %49[^\n]",s[count].name);
+        printf("Enter episodes watched\n");
+        scanf("%d",&s[count].ep);
+        fprintf(file,"Sr.No. %d\nName: %s\nEpisode: %d\n\n",count+1,s[count].name,s[count].ep);
+         count++;
+        
+    }
+    fclose(file);
+}
+
+void deletelist(struct list s[])
+{
+    FILE*file=fopen("list.txt","w");
+    fclose(file);
+    count=0;
+    printf("List content deleted successfull\n");
+}
+
+void see(struct list s[])
+{
+FILE*file=fopen("list.txt","r");
+if (file==NULL)
+{
+    printf("Could not open file!\n");
+    return ;
+}
+char ch;
+while((ch=fgetc(file)) != EOF)
+{
+    putchar(ch);
+}
+fclose(file);
+}
