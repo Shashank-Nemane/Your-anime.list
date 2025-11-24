@@ -83,7 +83,13 @@ This function is used to close a previously opened file.
 Syntax: fclose(file name):
 
 Ideate:
-A code 
+The purpose of this program is to create a simple text-based anime list manager, similar to a very small personal version of MyAnimeList.
+ The user can:
+1) Add new anime titles
+ 2)Delete the entire list
+ 3)View the saved list
+ 4)Automatically keep serial numbers correct even after restarting the program
+
 
 
 Built:
